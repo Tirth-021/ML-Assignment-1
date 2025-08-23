@@ -23,9 +23,12 @@ def gen_fake_data(N, M):
     """
     Generate N samples, M binary features, and binary labels.Labels are random just for runtime testing.
     """
+    p=0.6
     X =pd.DataFrame(np.random.randint(0, 2, size=(N, M)),
                      columns=[f"x{i}" for i in range(M)])
     y =pd.Series(np.random.randint(0, 2, size=N))
+    noise= np.random.rand(N)
+    X['x0'] =np.where(noise<p,y,1-y)
     return X,y
 
 def measure_time(N_values, M_values):
@@ -40,7 +43,7 @@ def measure_time(N_values, M_values):
                 pred_times = []
 
                 for _ in range(num_average_time):
-                    clf = DecisionTree(criterion=criterion,max_depth=3)
+                    clf = DecisionTree(criterion=criterion)
 
                     # Measure training time
                     start_fit = time.time()
@@ -95,8 +98,8 @@ def plot_results(df):
         plt.show()
 
 
-N_values = [50, 100, 150, 200, 300] 
-M_values = [5, 10, 15]
+N_values = [50, 100, 200, 300, 400] 
+M_values = [5, 10, 20]
 
 df_results = measure_time(N_values, M_values)
 print("Experiments done, plotting the results./n")

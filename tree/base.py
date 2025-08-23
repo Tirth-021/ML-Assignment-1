@@ -63,7 +63,7 @@ class DecisionTree:
 
         # incase split fails, make it leaf
         if len(y_left) == 0 or len(y_right) == 0:
-            return self.Node(value=self._leaf_value(y))
+            return self.Node(value=self.leaf_value(y))
 
         # building left and right subtree
         left_child = self.build_tree(X_left, y_left, depth + 1)

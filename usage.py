@@ -28,10 +28,12 @@ for criteria in ["information_gain", "gini_index"]:
     tree = DecisionTree(criterion=criteria)  # Split based on Inf. Gain
     tree.fit(X, y)
     y_hat = tree.predict(X)
-    #tree.plot()
+    tree.plot()
     print("Criteria :", criteria)
     print("RMSE: ", rmse(y_hat, y))
     print("MAE: ", mae(y_hat, y))
+
+#results are not promising because of no relation in underlying data and no  pattern can be learnt
 
 # Test case 2
 # Real Input and Discrete Output
@@ -47,13 +49,15 @@ for criteria in ["information_gain", "gini_index"]:
     tree = DecisionTree(criterion=criteria)  # Split based on Inf. Gain
     tree.fit(X, y)
     y_hat = tree.predict(X)
-    #tree.plot()
+    tree.plot()
     print("Criteria :", criteria)
     print("Accuracy: ", accuracy(y_hat, y))
     for count,cls in enumerate(y.unique()):
         print(f"Metrics for class {count}")
         print("Precision: ", precision(y_hat, y, cls))
         print("Recall: ", recall(y_hat, y, cls))
+
+#results are extremly good for some classes and can suggest possible overfitting
 
 
 # Test case 3
@@ -70,13 +74,15 @@ for criteria in ["information_gain", "gini_index"]:
     tree = DecisionTree(criterion=criteria)  # Split based on Inf. Gain
     tree.fit(X, y)
     y_hat = tree.predict(X)
-    #tree.plot()
+    tree.plot()
     print("Criteria :", criteria)
     print("Accuracy: ", accuracy(y_hat, y))
     for count,cls in enumerate(y.unique()):
         print(f"Metric for class {count}")
         print("Precision: ", precision(y_hat, y, cls))
         print("Recall: ", recall(y_hat, y, cls))
+
+# the model is just performing majority class prediction
 
 # Test case 4
 # Discrete Input and Real Output
@@ -92,7 +98,8 @@ for criteria in ["information_gain", "gini_index"]:
     tree = DecisionTree(criterion=criteria)  # Split based on Inf. Gain
     tree.fit(X, y)
     y_hat = tree.predict(X)
-    #tree.plot()
+    tree.plot()
     print("Criteria :", criteria)
     print("RMSE: ", rmse(y_hat, y))
     print("MAE: ", mae(y_hat, y))
+# again unable to find any meaningful pattern and giving baseline results as good as choosing
