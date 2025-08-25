@@ -12,6 +12,7 @@ from typing import Literal
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from graphviz import Digraph
 from tree.utils import *
 
 np.random.seed(42)
@@ -145,8 +146,31 @@ class DecisionTree:
                 print()
                 self.plot_single_node(node.right, depth + 1)
 
+    def _add_nodes(self, dot, node, parent=None, edge_label=""):
+        node_id = str(id(node))
+        if node.is_leaf():
+            # Leaf node: show its value
+            dot.node(node_id, label=f"Leaf: {node.value}", shape="box", style="filled", color="lightgrey")
+        else:
+            # Decision node: show attribute + threshold if real
+            if node.threshold is None:
+                label = f"{node.attribute} == 1"
+            else:
+                label = f"{node.attribute} <= {node.threshold:.3f}"
+            dot.node(node_id, label=label, shape="ellipse", style="filled", color="lightblue")
+        
+        # Connect to parent
+        if parent:
+            dot.edge(parent, node_id, label=str(edge_label))
+        
+        # Add children recursively if not leaf
+        if not node.is_leaf():
+            self._add_nodes(dot, node.left, parent=node_id, edge_label="Yes")
+            self._add_nodes(dot, node.right, parent=node_id, edge_label="No")
 
-    def plot(self) -> None:
+
+
+    def plot(self,name) -> None:
         """
         Function to plot the tree
 
@@ -158,7 +182,8 @@ class DecisionTree:
             N: Class C
         Where Y => Yes and N => No
         """
-        if self.root:
-            self.plot_single_node(self.root)
-        else:
-            print("Tree is empty. Fit the model first.")
+        dot =Digraph()
+        filename="tree_diagram"+name
+        view=False
+        self._add_nodes(dot, self.root)
+        dot.render(filename, view=view, format="png",cleanup=True)

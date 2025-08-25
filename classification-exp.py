@@ -5,7 +5,6 @@ from tree.base import DecisionTree
 from metrics import *
 from sklearn.datasets import make_classification
 from sklearn.model_selection import train_test_split, KFold, StratifiedKFold
-from sklearn.metrics import accuracy_score, precision_score, recall_score,make_scorer
 
 np.random.seed(42)
 
@@ -21,8 +20,8 @@ X = pd.DataFrame(X_np, columns=["feature1", "feature2"])
 y = pd.Series(y_np, name="target")
 
 X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.3, random_state=42, stratify=y
-)
+    X, y, test_size=0.3, random_state=42
+) #stratify=y
 
 tree = DecisionTree(criterion="information_gain")
 tree.fit(X_train, y_train)
@@ -30,21 +29,17 @@ tree.fit(X_train, y_train)
 y_pred_raw = tree.predict(X_test)
 y_pred = (y_pred_raw >= 0.5).astype(int) 
 
-#replace with your built functions
-
-acc = accuracy_score(y_test, y_pred)
-prec = precision_score(y_test, y_pred, average=None)
-rec = recall_score(y_test, y_pred, average=None)
-
 print("=== Part (a) Results ===")
-print(f"Accuracy: {acc:.4f}")
+print("Accuracy: ", accuracy(y_pred, y_test))
+
 for cls in np.unique(y):
-    print(f"Class {cls} -> Precision: {prec[cls]:.4f}, Recall: {rec[cls]:.4f}")
+    prec = precision(y_pred,y_test,cls)
+    rec = recall(y_pred,y_test,cls)
+    print(f"Class {cls} -> Precision: {prec:.4f}, Recall: {rec:.4f}")
 
 
-# -------------------------
-# Part (b): Nested Cross-Validation to find optimum depth
-# -------------------------
+################ Part (b): #####################
+
 outer_kf = StratifiedKFold(n_splits=5, shuffle=True, random_state=42) #tried with Kfold and SKfold as well
 depth_range = range(1, 11)  # depths to search over
 outer_scores = []
@@ -68,7 +63,7 @@ for train_idx, test_idx in outer_kf.split(X,y):
             tree.fit(X_train_inner, y_train_inner)
             
             y_pred_inner = (tree.predict(X_val_inner) >= 0.5).astype(int)
-            inner_fold_scores.append(accuracy_score(y_val_inner, y_pred_inner))
+            inner_fold_scores.append(accuracy(y_pred_inner,y_val_inner))
         
         depth_scores.append(np.mean(inner_fold_scores))
     
