@@ -125,34 +125,14 @@ class DecisionTree:
             predictions.append(self.predict_one_sample(row, self.root))
         return pd.Series(predictions, index=X.index)
     
-    
-    def plot_single_node(self, node: 'DecisionTree.Node', depth=0):
-        indent = "    " * depth
-        if node.is_leaf():
-            print(f"{indent}Y: {node.value}")
-        else:
-           
-            if node.threshold is None:
-                print(f"{indent}?( {node.attribute} == 1 )")
-            else:
-                print(f"{indent}?( {node.attribute} <= {node.threshold:.3f} )")
-            # left branch
-            self.plot_single_node(node.left, depth + 1)
-            # right branch
-            print(f"{'    ' * depth}N:", end="")
-            if node.right.is_leaf():
-                print(f" {node.right.value}")
-            else:
-                print()
-                self.plot_single_node(node.right, depth + 1)
 
-    def _add_nodes(self, dot, node, parent=None, edge_label=""):
-        node_id = str(id(node))
+    def add_nodes(self, dot, node, parent=None, edge_label=""):
+        node_id =str(id(node))
         if node.is_leaf():
-            # Leaf node: show its value
+           
             dot.node(node_id, label=f"Leaf: {node.value}", shape="box", style="filled", color="lightgrey")
         else:
-            # Decision node: show attribute + threshold if real
+            
             if node.threshold is None:
                 label = f"{node.attribute} == 1"
             else:
@@ -165,9 +145,8 @@ class DecisionTree:
         
         # Add children recursively if not leaf
         if not node.is_leaf():
-            self._add_nodes(dot, node.left, parent=node_id, edge_label="Yes")
-            self._add_nodes(dot, node.right, parent=node_id, edge_label="No")
-
+            self.add_nodes(dot, node.left, parent=node_id, edge_label="Yes")
+            self.add_nodes(dot, node.right, parent=node_id, edge_label="No")
 
 
     def plot(self,name) -> None:
@@ -185,5 +164,5 @@ class DecisionTree:
         dot =Digraph()
         filename="tree_diagram"+name
         view=False
-        self._add_nodes(dot, self.root)
+        self.add_nodes(dot, self.root)
         dot.render(filename, view=view, format="png",cleanup=True)
