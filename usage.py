@@ -28,12 +28,12 @@ for criteria in ["information_gain", "gini_index"]:
     tree = DecisionTree(criterion=criteria)  # Split based on Inf. Gain
     tree.fit(X, y)
     y_hat = tree.predict(X)
-    tree.plot()
+    tree.plot("ts1")
     print("Criteria :", criteria)
     print("RMSE: ", rmse(y_hat, y))
     print("MAE: ", mae(y_hat, y))
 
-#results are not promising because of no relation in underlying data and no  pattern can be learnt
+#results shows signs of overfitting the data
 
 # Test case 2
 # Real Input and Discrete Output
@@ -49,7 +49,7 @@ for criteria in ["information_gain", "gini_index"]:
     tree = DecisionTree(criterion=criteria)  # Split based on Inf. Gain
     tree.fit(X, y)
     y_hat = tree.predict(X)
-    tree.plot()
+    tree.plot("ts2")
     print("Criteria :", criteria)
     print("Accuracy: ", accuracy(y_hat, y))
     for count,cls in enumerate(y.unique()):
@@ -74,7 +74,7 @@ for criteria in ["information_gain", "gini_index"]:
     tree = DecisionTree(criterion=criteria)  # Split based on Inf. Gain
     tree.fit(X, y)
     y_hat = tree.predict(X)
-    tree.plot()
+    tree.plot("ts3")
     print("Criteria :", criteria)
     print("Accuracy: ", accuracy(y_hat, y))
     for count,cls in enumerate(y.unique()):
@@ -98,7 +98,7 @@ for criteria in ["information_gain", "gini_index"]:
     tree = DecisionTree(criterion=criteria)  # Split based on Inf. Gain
     tree.fit(X, y)
     y_hat = tree.predict(X)
-    tree.plot()
+    tree.plot("ts4")
     print("Criteria :", criteria)
     print("RMSE: ", rmse(y_hat, y))
     print("MAE: ", mae(y_hat, y))
