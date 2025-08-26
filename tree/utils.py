@@ -110,11 +110,19 @@ def opt_split_attribute(X: pd.DataFrame, y: pd.Series, criterion, features: pd.S
 
         if((col.dtype == 'object') or (str(col.dtype) == 'category')):
             # If discrete feature-use info gain directly
-            gain = information_gain(y, col, criterion)
-            if gain > best_gain:
-                best_gain = gain
-                best_feature = feature
-                best_threshold = None
+            for val in col.unique():
+                left_mask= (col==val)
+                right_mask =(col!=val)
+                if left_mask.sum() == 0 or right_mask.sum() == 0:
+                    continue
+                if criterion=="entropy":
+                    gain = information_gain(y, col==val, criterion)
+                else:
+                    gain =gini_index(y)
+                if gain > best_gain:
+                    best_gain = gain
+                    best_feature = feature
+                    best_threshold = val
         else:
             # If real feature-try splits at midpoints between sorted unique values
             sorted_vals = np.unique(col)

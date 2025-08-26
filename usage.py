@@ -33,7 +33,7 @@ for criteria in ["information_gain", "gini_index"]:
     print("RMSE: ", rmse(y_hat, y))
     print("MAE: ", mae(y_hat, y))
 
-#results are not promising because of no relation in underlying data and no  pattern can be learnt
+#results shows signs of overfitting the data
 
 # Test case 2
 # Real Input and Discrete Output
