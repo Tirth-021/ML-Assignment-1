@@ -24,7 +24,7 @@ activity_labels_map = {v: k for k, v in classes.items()}
 activity_labels = [activity_labels_map[i] for i in sorted(activity_labels_map)]
 
 
-################ Task 1#####################################
+################ Task 2 Question-1 SubQuestion-1#####################################
 def evaluate_model(X_train, y_train, X_test, y_test, model_name="Model",depth = 6, task2_sub_question2 = False):
     print(f"\n--- Evaluating {model_name} ---")
     if task2_sub_question2:
@@ -72,7 +72,7 @@ for depth in range(1, 9):
 
 
 
-########################Task 2################################3
+########################Task 2 Question-1 SubQuestion-2################################3
 
 
 # TSFEL configuration
@@ -273,7 +273,7 @@ plt.xlabel('Predicted Label')
 plt.show()
 
 
-############### TAsk 3 ##################
+############### Task 2 Question-1 SubQuestion-3 ##################
 
 # Path to the original dataset folder
 DATASET_PATH = "UCI HAR Dataset/"
@@ -297,7 +297,7 @@ for depth in range(1,9):
     feature_model_accuracy_list.append(result['Accuracy'])
 
 #=======================================================================
-#=======================================================================
+#================================task 2 Question-2 =======================================
 
 
 def test_dt_with_various_depths():
