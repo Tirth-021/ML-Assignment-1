@@ -125,7 +125,7 @@ WALKING_DOWNSTAIRS       0.25      0.11      0.15         9
 <br>
 
 <p align="center">
-  <img src="images/t2_Q1_st1.png" alt="Training vs N (Info Gain)" width="45%"/>
+  <img src="images/t2-Q1-st1.png" alt="Raw data model Confusion matrix" width="45%"/>
 </p>
 
 ########################Q1-Subtask 2################################3
@@ -394,7 +394,7 @@ WALKING_DOWNSTAIRS       0.73      0.89      0.80         9
 <br>
 
 <p align="center">
-  <img src="images/t2_Q1_st2.png" alt="Training vs N (Info Gain)" width="45%"/>
+  <img src="images/t2-Q1-st2.png" alt="TSFEL model confusion matrix" width="45%"/>
 </p>
 
 
@@ -458,7 +458,7 @@ WALKING_DOWNSTAIRS       0.89      0.83      0.86       420
 <br>
 
 <p align="center">
-  <img src="images/t2_Q1_st3.png" alt="Training vs N (Info Gain)" width="45%"/>
+  <img src="images/t2-Q1-st3.png" alt="Features Dataset Model Confusion matrix" width="45%"/>
 </p>
 
 
@@ -494,7 +494,7 @@ test_dt_with_various_depths()
 <br>
 
 <p align="center">
-  <img src="images/t2_Q2.png" alt="Training vs N (Info Gain)" width="45%"/>
+  <img src="images/t2-Q2.png" alt="Models Accuracy on various depths" width="45%"/>
 </p>
 
 ##################### output for Question-3########################
