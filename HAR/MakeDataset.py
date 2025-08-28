@@ -84,3 +84,12 @@ print("Testing data shape: ",X_test.shape)
 #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 
+# Save datasets
+np.save("training_data.npy", X_train)
+np.save("training_labels.npy", y_train)
+print("Train data successfully saved")
+
+np.save("testing_data.npy", X_test)
+np.save("testing_labels.npy", y_test)
+
+print("Test data successfully saved")
